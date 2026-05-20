@@ -1,0 +1,51 @@
+name: 🤖 Agent Task
+description: Dispatch an AI agent to work on this repository
+labels: ["agent-task"]
+body:
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      description: Which model should handle this task?
+      options:
+        - Gemini 3.1 Flash Lite
+        - Gemini 3.1 Flash Lite (Preview)
+        - Gemini Flash (latest)
+        - Gemini Pro (latest)
+        - Kimi K2.6
+        - Qwen3.6 Flash
+        - Qwen3.6 27B
+        - Qwen3.6 35B A3B
+        - Qwen3.6 Plus
+        - Qwen3.6 Max Preview
+        - DeepSeek V4 Flash
+        - DeepSeek V4 Pro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Review only (no commits)
+        - Fix and open PR
+        - Fix and push directly (no PR)
+    validations:
+      required: true
+
+  - type: textarea
+    id: task
+    attributes:
+      label: Task description
+      placeholder: Describe what you want the agent to do...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Extra context (optional)
+      placeholder: |
+        Paste relevant file paths, error messages, related issue
+        numbers, specific branches to target, etc.

@@ -1,0 +1,26 @@
+name: Setup labels
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/setup-labels.yml'
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                name:  'agent-task',
+                color: '7B68EE',
+                description: 'Dispatch an AI agent on this task'
+              });
+              console.log('Label created');
+            } catch (e) {
+              if (e.status === 422) console.log('Already exists');
+              else throw e;
+            }
